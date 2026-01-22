@@ -1,0 +1,21 @@
+﻿{
+	"refreshMinutes": 120,
+	"apiKey": "XXXXXXX",
+	"stocks": [
+		{
+			"ticker": "WINC.XETRA",
+			"nome": "WINC",
+			"referencePrice": 4.75
+		},
+		{
+			"ticker": "JGPI.XETRA",
+			"nome": "JGPI",
+			"referencePrice": 24.14
+		},
+		{
+			"ticker": "8PSG.XETRA",
+			"nome": "SGLD",
+			"referencePrice": 164.18
+		}
+	]
+}
