@@ -36,6 +36,7 @@
             aggiornaToolStripMenuItem = new ToolStripMenuItem();
             apriConfigurazioneToolStripMenuItem = new ToolStripMenuItem();
             spostaToolStripMenuItem = new ToolStripMenuItem();
+            attivaDisattivaAlwaysOnTopToolStripMenuItem = new ToolStripMenuItem();
             chiudiToolStripMenuItem = new ToolStripMenuItem();
             tableLayoutPanel.SuspendLayout();
             contextMenuStrip.SuspendLayout();
@@ -72,9 +73,9 @@
             // 
             // contextMenuStrip
             // 
-            contextMenuStrip.Items.AddRange(new ToolStripItem[] { aggiornaToolStripMenuItem, apriConfigurazioneToolStripMenuItem, spostaToolStripMenuItem, chiudiToolStripMenuItem });
+            contextMenuStrip.Items.AddRange(new ToolStripItem[] { aggiornaToolStripMenuItem, apriConfigurazioneToolStripMenuItem, spostaToolStripMenuItem, attivaDisattivaAlwaysOnTopToolStripMenuItem, chiudiToolStripMenuItem });
             contextMenuStrip.Name = "contextMenuStrip";
-            contextMenuStrip.Size = new Size(181, 92);
+            contextMenuStrip.Size = new Size(181, 114);
             // 
             // aggiornaToolStripMenuItem
             // 
@@ -96,6 +97,15 @@
             spostaToolStripMenuItem.Size = new Size(180, 22);
             spostaToolStripMenuItem.Text = "Sposta";
             spostaToolStripMenuItem.Click += spostaToolStripMenuItem_Click;
+            // 
+            // attivaDisattivaAlwaysOnTopToolStripMenuItem
+            // 
+            attivaDisattivaAlwaysOnTopToolStripMenuItem.Checked = true;
+            attivaDisattivaAlwaysOnTopToolStripMenuItem.CheckState = CheckState.Checked;
+            attivaDisattivaAlwaysOnTopToolStripMenuItem.Name = "attivaDisattivaAlwaysOnTopToolStripMenuItem";
+            attivaDisattivaAlwaysOnTopToolStripMenuItem.Size = new Size(180, 22);
+            attivaDisattivaAlwaysOnTopToolStripMenuItem.Text = "Always On Top";
+            attivaDisattivaAlwaysOnTopToolStripMenuItem.Click += attivaDisattivaAlwaysOnTopToolStripMenuItem_Click;
             // 
             // chiudiToolStripMenuItem
             // 
@@ -125,6 +135,7 @@
             SizeGripStyle = SizeGripStyle.Hide;
             StartPosition = FormStartPosition.Manual;
             Text = "Stock Value";
+            TopMost = true;
             tableLayoutPanel.ResumeLayout(false);
             tableLayoutPanel.PerformLayout();
             contextMenuStrip.ResumeLayout(false);
@@ -140,5 +151,6 @@
         private ToolStripMenuItem chiudiToolStripMenuItem;
         private ToolStripMenuItem apriConfigurazioneToolStripMenuItem;
         private ToolStripMenuItem spostaToolStripMenuItem;
+        private ToolStripMenuItem attivaDisattivaAlwaysOnTopToolStripMenuItem;
     }
 }

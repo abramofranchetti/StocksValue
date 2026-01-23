@@ -1,6 +1,7 @@
 namespace StocksValue;
 
 using System.Text.Json;
+using System.Windows.Forms;
 
 public partial class WidgetForm : Form
 {
@@ -10,7 +11,7 @@ public partial class WidgetForm : Form
 
     public WidgetForm()
     {
-        InitializeComponent();        
+        InitializeComponent();
         LoadConfig();
         LoadData();
 
@@ -101,6 +102,14 @@ public partial class WidgetForm : Form
             flowLayoutPanel.Controls.Add(label);
         }
         RegisterMouseEvents(this);
+        // seleziona lo schermo dove vuoi posizionare il widget
+        var screen = Screen.FromControl(this); // o Screen.PrimaryScreen
+        var workingArea = screen.WorkingArea;
+
+        this.Location = new Point(
+            workingArea.Right - this.Width,  // distanza dx = larghezza finestra
+            workingArea.Bottom - this.Height // distanza basso = altezza finestra
+        );
     }
 
     private void aggiornaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -110,9 +119,7 @@ public partial class WidgetForm : Form
             LoadConfig();
             LoadData();
         }
-        catch
-        {
-        }
+        catch { }
     }
 
     private void chiudiToolStripMenuItem_Click(object sender, EventArgs e)
@@ -121,10 +128,7 @@ public partial class WidgetForm : Form
         {
             Application.Exit();
         }
-        catch
-        {
-
-        }
+        catch { }
     }
 
     private void apriConfigurazioneToolStripMenuItem_Click(object sender, EventArgs e)
@@ -135,10 +139,7 @@ public partial class WidgetForm : Form
             var path = Path.Combine(AppContext.BaseDirectory, "config.json");
             System.Diagnostics.Process.Start("notepad.exe", path);
         }
-        catch
-        {
-
-        }
+        catch { }
     }
 
     private void spostaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -164,23 +165,33 @@ public partial class WidgetForm : Form
                 }
             }
         }
-        catch
-        {
-
-        }
-    }    
-    protected override void OnFormClosing(FormClosingEventArgs e) { _timer.Stop(); base.OnFormClosing(e); }    
+        catch { }
+    }
+    protected override void OnFormClosing(FormClosingEventArgs e) { _timer.Stop(); base.OnFormClosing(e); }
     protected override void OnLoad(EventArgs e)
     {
-        base.OnLoad(e);
-        var secondary = Screen.AllScreens.FirstOrDefault(s => !s.Primary);
-        if (secondary != null)
+        try
         {
-            this.Location = secondary.WorkingArea.Location;
+            base.OnLoad(e);
+            var secondary = Screen.AllScreens.FirstOrDefault(s => !s.Primary);
+            if (secondary != null)
+            {
+                this.Location = secondary.WorkingArea.Location;
+            }
+            else
+            {
+                this.Location = Screen.PrimaryScreen.WorkingArea.Location;
+            }
         }
-        else
-        {
-            this.Location = Screen.PrimaryScreen.WorkingArea.Location;
-        }
+        catch { }
     }
+
+    private void attivaDisattivaAlwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        try {            
+            this.attivaDisattivaAlwaysOnTopToolStripMenuItem.Checked = this.TopMost;
+            this.TopMost = !this.TopMost;
+        }
+        catch { }
+    }    
 }
