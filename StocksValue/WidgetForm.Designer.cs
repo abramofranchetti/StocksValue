@@ -50,13 +50,13 @@
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel.Controls.Add(flowLayoutPanel, 0, 0);
             tableLayoutPanel.Dock = DockStyle.Fill;
-            tableLayoutPanel.Location = new Point(3, 3);
+            tableLayoutPanel.Location = new Point(1, 1);
             tableLayoutPanel.Margin = new Padding(0);
             tableLayoutPanel.Name = "tableLayoutPanel";
             tableLayoutPanel.RowCount = 1;
             tableLayoutPanel.RowStyles.Add(new RowStyle());
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel.Size = new Size(148, 258);
+            tableLayoutPanel.Size = new Size(152, 262);
             tableLayoutPanel.TabIndex = 0;
             // 
             // flowLayoutPanel
@@ -68,7 +68,7 @@
             flowLayoutPanel.Location = new Point(0, 0);
             flowLayoutPanel.Margin = new Padding(0);
             flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(148, 258);
+            flowLayoutPanel.Size = new Size(152, 262);
             flowLayoutPanel.TabIndex = 1;
             // 
             // contextMenuStrip
@@ -130,7 +130,7 @@
             FormScreenCaptureMode = ScreenCaptureMode.HideWindow;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "WidgetForm";
-            Padding = new Padding(3);
+            Padding = new Padding(1);
             ShowInTaskbar = false;
             SizeGripStyle = SizeGripStyle.Hide;
             StartPosition = FormStartPosition.Manual;
