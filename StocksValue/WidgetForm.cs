@@ -69,8 +69,8 @@ public partial class WidgetForm : Form
                     ForeColor = deltaPct >= 0 ? Color.LightGreen : Color.OrangeRed,
                     BackColor = Color.Transparent,
                     Text =
-                        $"{stock.nome} {deltaPct:+0.00;-0.00}%\n" +
-                        $"Prz: {price:0.00}\n"                        
+                        $"{stock.nome} {deltaPct:0.00}%\n" +
+                        $"{price:0.00} ({stock.referencePrice})"                        
                 };
 
                 flowLayoutPanel.Controls.Add(label);
@@ -81,9 +81,7 @@ public partial class WidgetForm : Form
                     BorderStyle = BorderStyle.FixedSingle,
                     Width = flowLayoutPanel.ClientSize.Width,
                     ForeColor = Color.Wheat,
-                    BackColor = Color.Transparent,
-                    Padding = new Padding(0, 4, 0, 4),
-                    Margin = new Padding(0, 4, 0, 4)
+                    BackColor = Color.Transparent                    
                 });
             }
             flowLayoutPanel.Controls.RemoveAt(flowLayoutPanel.Controls.Count - 1);
