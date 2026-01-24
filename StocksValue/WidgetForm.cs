@@ -144,12 +144,13 @@ public partial class WidgetForm : Form
         {
             //sposta finestra nel primario o secondario a seconda di dove si trova
             var screen = Screen.FromControl(this);
+            var workingArea = screen.WorkingArea;
             if (screen.Primary)
             {
                 var secondary = Screen.AllScreens.FirstOrDefault(s => !s.Primary);
                 if (secondary != null)
                 {
-                    this.Location = secondary.WorkingArea.Location;
+                    workingArea = secondary.WorkingArea;
                 }
             }
             else
@@ -157,9 +158,14 @@ public partial class WidgetForm : Form
                 var primary = Screen.AllScreens.FirstOrDefault(s => s.Primary);
                 if (primary != null)
                 {
-                    this.Location = primary.WorkingArea.Location;
+                    workingArea = primary.WorkingArea;
                 }
             }
+
+            this.Location = new Point(
+            workingArea.Right - this.Width,  // distanza dx = larghezza finestra
+            workingArea.Bottom - this.Height // distanza basso = altezza finestra
+        );
         }
         catch { }
     }
