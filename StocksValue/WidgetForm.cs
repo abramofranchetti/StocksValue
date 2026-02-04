@@ -8,14 +8,14 @@ public partial class WidgetForm : Form
     private ApplicationConfig _config = new();
     private FinanceClient _client = new();
     private System.Windows.Forms.Timer _timer = new();
-
+    private int RefreshIntervalMinutes = 5;
     public WidgetForm()
     {
         InitializeComponent();
         LoadConfig();
         LoadData();
-
-        _timer.Interval = _config.refreshMinutes * 60 * 1000;
+        RefreshIntervalMinutes = _config.refreshMinutes * 60 * 1000;
+        _timer.Interval = RefreshIntervalMinutes;
         _timer.Tick += async (_, _) => { try { await LoadData(); } catch { } };
         _timer.Start();
     }
@@ -55,6 +55,7 @@ public partial class WidgetForm : Form
         try
         {
             flowLayoutPanel.Controls.Clear();
+            _timer.Interval = RefreshIntervalMinutes; // reset intervallo in caso di errore precedente
 
             foreach (var stock in _config.stocks)
             {
@@ -70,7 +71,7 @@ public partial class WidgetForm : Form
                     BackColor = Color.Transparent,
                     Text =
                         $"{stock.nome} {deltaPct:0.00}%\n" +
-                        $"{price:0.00} ({stock.referencePrice})"                        
+                        $"{price:0.00} ({stock.referencePrice})"
                 };
 
                 flowLayoutPanel.Controls.Add(label);
@@ -81,7 +82,7 @@ public partial class WidgetForm : Form
                     BorderStyle = BorderStyle.FixedSingle,
                     Width = flowLayoutPanel.ClientSize.Width,
                     ForeColor = Color.Wheat,
-                    BackColor = Color.Transparent                    
+                    BackColor = Color.Transparent
                 });
             }
             flowLayoutPanel.Controls.RemoveAt(flowLayoutPanel.Controls.Count - 1);
@@ -96,6 +97,7 @@ public partial class WidgetForm : Form
             };
 
             flowLayoutPanel.Controls.Add(label);
+            _timer.Interval = 1 * 60 * 1000; // riprova in 1 minuto
         }
         RegisterMouseEvents(this);
         // seleziona lo schermo dove vuoi posizionare il widget
@@ -190,10 +192,11 @@ public partial class WidgetForm : Form
 
     private void attivaDisattivaAlwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        try {            
+        try
+        {
             this.attivaDisattivaAlwaysOnTopToolStripMenuItem.Checked = this.TopMost;
             this.TopMost = !this.TopMost;
         }
         catch { }
-    }    
+    }
 }
