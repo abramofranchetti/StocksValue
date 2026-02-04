@@ -14,7 +14,7 @@ public class FinanceClient
     /// SGLD.XETR
     /// VOW3.XETR
     /// </summary>
-    public async Task<decimal?> GetPriceAsync(string ticker)
+    public async Task<RealTimeQuote?> GetQuoteAsync(string ticker)
     {
         var url =
             $"https://eodhd.com/api/real-time/{ticker}?api_token={ApiKey}&fmt=json";
@@ -23,13 +23,12 @@ public class FinanceClient
         {
             var json = await _http.GetStringAsync(url);
 
-            using var doc = JsonDocument.Parse(json);
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
 
-            // "close" = ultimo prezzo intraday disponibile
-            if (!doc.RootElement.TryGetProperty("close", out var close))
-                return null;
-
-            return close.GetDecimal();
+            return JsonSerializer.Deserialize<RealTimeQuote>(json, options);
         }
         catch
         {

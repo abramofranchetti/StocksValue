@@ -59,19 +59,19 @@ public partial class WidgetForm : Form
 
             foreach (var stock in _config.stocks)
             {
-                var price = await _client.GetPriceAsync(stock.ticker);
-                if (price == null) continue;
+                var quote = await _client.GetQuoteAsync(stock.ticker);
+                if (quote == null) continue;
 
-                var deltaPct = (price.Value - stock.referencePrice) / stock.referencePrice * 100;
-
+                var deltaPct = (quote.Close - stock.referencePrice) / stock.referencePrice * 100;
+                var greatDrop = deltaPct <= -3?"!!":"";
                 var label = new Label
                 {
                     AutoSize = true,
                     ForeColor = deltaPct >= 0 ? Color.LightGreen : Color.OrangeRed,
-                    BackColor = Color.Transparent,
-                    Text =
-                        $"{stock.nome} {deltaPct:0.00}%\n" +
-                        $"{price:0.00} ({stock.referencePrice})"
+                    BackColor = Color.Transparent,                                        
+                    Text = 
+                        $"{greatDrop} {stock.nome} {deltaPct:0.00}%\n" +
+                        $"{quote.Close:0.00} {stock.referencePrice}"
                 };
 
                 flowLayoutPanel.Controls.Add(label);
