@@ -63,7 +63,7 @@ public partial class WidgetForm : Form
                 if (quote == null) continue;
 
                 var deltaPct = (quote.Close - stock.referencePrice) / stock.referencePrice * 100;
-                var greatDrop = deltaPct <= -3?"!!":"";
+                var greatDrop = quote.Change_P <= -3?"!!":"";
                 var label = new Label
                 {
                     AutoSize = true,
